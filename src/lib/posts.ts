@@ -211,14 +211,12 @@ export async function getAllPosts() {
     (a, b) => +new Date(b.date) - +new Date(a.date)
   );
 }
-export function groupByCategory(posts) {
-  const map = {};
+export function groupByCategory(posts: PostMeta[]): Record<string, PostMeta[]> {
+  const map: Record<string, PostMeta[]> = {};
 
   for (const post of posts) {
-    if (!map[post.category]) {
-      map[post.category] = [];
-    }
-    map[post.category].push(post);
+    const cat = post.category ?? "uncategorized";
+    (map[cat] ??= []).push(post);
   }
 
   return map;
