@@ -34,6 +34,10 @@ export default function RootLayout({
               >
                 文章
               </Link>
+              <Link href="/category"
+                              className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                              >
+                                分類</Link>
 
               <Link
                 href="/about"

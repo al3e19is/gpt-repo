@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getAllPostsMeta } from "@/lib/posts";
+import { getAllCategories, getAllPostsMeta } from "@/lib/posts";
 
 export default async function PostsPage() {
   const posts = await getAllPostsMeta();
-
+  const categories = await getAllCategories();
   return (
     <main className="prose prose-neutral dark:prose-invert max-w-none">
       <h1>全部文章</h1>

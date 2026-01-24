@@ -3,13 +3,15 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
+import html from "remark-html"
+
+// import type { PostMeta } from "@/lib/posts"; // 如果同檔就唔洗
 
 /**
  * LOCKED CONTENT PATH (SSOT)
  * 所有文章都放喺 /content/posts/*.md
  */
-const POSTS_DIR = path.join(process.cwd(), "content", "posts");
+const POSTS_DIR = path.join(process.cwd(),  "content", "posts");
 
 /**
  * Front-matter schema（你 md 檔頭 YAML）
@@ -161,4 +163,63 @@ export async function getAllPostsMeta(): Promise<PostMeta[]> {
   return items
     .filter(Boolean)
     .sort((a, b) => (b!.date || "").localeCompare(a!.date || "")) as PostMeta[];
+}
+
+
+export async function getAllCategories(): Promise<string[]> {
+  const posts = await getAllPostsMeta();
+  const set = new Set<string>();
+
+  for (const p of posts) {
+    if (p.category) set.add(p.category);
+  }
+
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
+}
+
+export async function getPostsByCategory(category: string): Promise<PostMeta[]> {
+  const posts = await getAllPostsMeta();
+  return posts.filter((p) => p.category === category);
+}
+
+
+
+
+export async function getAllPosts() {
+  const files = await fs.readdir(POSTS_DIR);
+
+  const posts = await Promise.all(
+    files
+      .filter(f => f.endsWith(".md") || f.endsWith(".mdx"))
+      .map(async (file) => {
+        const raw = await fs.readFile(
+          path.join(POSTS_DIR, file),
+          "utf-8"
+        );
+        const { data } = matter(raw);
+
+        return {
+          slug: file.replace(/\.mdx?$/, ""),
+          title: String(data.title ?? ""),
+          date: String(data.date ?? ""),
+          category: String(data.category ?? "uncategorized"),
+        };
+      })
+  );
+
+  return posts.sort(
+    (a, b) => +new Date(b.date) - +new Date(a.date)
+  );
+}
+export function groupByCategory(posts) {
+  const map = {};
+
+  for (const post of posts) {
+    if (!map[post.category]) {
+      map[post.category] = [];
+    }
+    map[post.category].push(post);
+  }
+
+  return map;
 }
