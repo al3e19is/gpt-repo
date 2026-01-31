@@ -21,14 +21,11 @@ export default async function HomePage() {
       <h1>INTP 想知的事</h1>
 
       <p>
-        呢個 site 記錄一啲我真正想搞清楚嘅問題：技術、金錢、生活方式，
-        同埋點樣喺資訊爆炸嘅年代保住注意力。
+        現有 AI 的 LLM (Large Language Models) 整理不了用家問過什麼內容，所以我做了這個。
       </p>
 
-      <h2>按分類：每類最新 5 篇</h2>
-
       {orderedEntries.map(([cat, catPosts]) => (
-        <section key={cat}>
+        <section key={cat}  className="border-l-4 border-neutral-400 dark:border-neutral-600 pl-4 mb-6">
           <h3>{cat}</h3>
 
           <ul>
@@ -46,13 +43,6 @@ export default async function HomePage() {
         </section>
       ))}
 
-      <p>
-        <Link href="/category">→ 按分類瀏覽文章</Link>
-      </p>
-
-      <p>
-        <Link href="/posts">→ 查看全部文章</Link>
-      </p>
     </main>
   );
 }

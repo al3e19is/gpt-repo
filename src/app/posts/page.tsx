@@ -13,8 +13,7 @@ export default async function PostsPage() {
           <li key={p.slug}>
             <Link href={`/posts/${p.slug}`}>{p.title}</Link>
             <span className="text-sm text-gray-500">
-              {" "}
-              · {p.date} · {p.readingTime} min
+              {" "} · {p.date} · {p.readingTime} min
             </span>
           </li>
         ))}
