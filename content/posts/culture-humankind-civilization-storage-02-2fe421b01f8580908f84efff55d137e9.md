@@ -1,6 +1,6 @@
 ---
 title: "如果人類消失，文明會唔會仍然存在？"
-date: "2026-02-02"
+date: "2026-02-05"
 description: "非人類能否保存人類文明」的答案"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"

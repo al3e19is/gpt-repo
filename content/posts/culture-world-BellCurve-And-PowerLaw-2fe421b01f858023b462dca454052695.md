@@ -1,6 +1,6 @@
 ---
 title: "Bell Curve 與 Power Law：問題只係你有冇認錯自己所在嘅宇宙。"
-date: "2026-02-02"
+date: "2026-02-05"
 description: "Bell Curve 與 Power Law"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"

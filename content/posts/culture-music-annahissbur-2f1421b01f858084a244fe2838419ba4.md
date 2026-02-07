@@ -1,6 +1,6 @@
 ---
 title: "迷霧中的慵懶靈魂與熱血迷-解構 Anna hisbbuR 的藝術世界"
-date: "2026-02-02"
+date: "2026-01-23"
 description: "解構 Anna hisbbuR 的藝術世界"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"

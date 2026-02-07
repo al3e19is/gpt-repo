@@ -1,6 +1,6 @@
 ---
 title: "K-Pop 的人權革命：從 NewJeans 官司看韓國演藝圈的十年變革與法律曙光"
-date: "2026-02-02"
+date: "2026-01-18"
 description: "從 NewJeans 官司看韓國演藝圈的十年變革與法律曙光"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"

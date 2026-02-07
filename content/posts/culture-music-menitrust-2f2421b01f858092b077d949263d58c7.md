@@ -1,6 +1,6 @@
 ---
 title: "城市漫步的背景樂：Men I Trust 的夢幻與律動美學"
-date: "2026-02-02"
+date: "2026-01-24"
 description: "為何我們在虛無時代需要 Men I Trust?"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"

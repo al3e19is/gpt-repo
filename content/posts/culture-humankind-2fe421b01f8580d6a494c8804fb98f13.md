@@ -1,6 +1,6 @@
 ---
 title: "既然人類起源是非洲，為什麼又有人自居炎黃子孫"
-date: "2026-02-02"
+date: "2026-02-03"
 description: "生物學上我們是南方古猿的演化產物，文化上我們是炎黃故事的運行平台。"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"

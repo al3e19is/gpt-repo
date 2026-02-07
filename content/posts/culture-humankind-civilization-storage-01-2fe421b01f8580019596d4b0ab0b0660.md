@@ -1,6 +1,6 @@
 ---
 title: "人類文明的兩種長期保存方式——Voyager 金唱片與月球圖書館介紹"
-date: "2026-02-02"
+date: "2026-02-05"
 description: "Voyager 金唱片與月球圖書館介紹"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
