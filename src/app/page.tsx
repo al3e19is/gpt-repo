@@ -19,7 +19,10 @@ export default async function HomePage() {
   return (
     <main className="prose prose-neutral dark:prose-invert max-w-none">
       <h1>INTP 想知的事</h1>
-
+      <img
+        src="/images/banner01.jpg"
+        alt="文章 Banner"
+      />
       <p>
         雖然現有 AI 的 LLM 好強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
       </p>
