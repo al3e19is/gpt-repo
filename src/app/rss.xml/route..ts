@@ -1,8 +1,8 @@
 import { getAllPostsMeta, getPostBySlug } from "@/lib/posts";
 
-const SITE_URL = "https://example.com"; // 之後換你真 domain
+const SITE_URL = "https://intp-gpt-to-know.netlify.app/"; // 之後換你真 domain
 const SITE_TITLE = "INTP 想知的事";
-const SITE_DESCRIPTION = "記錄一啲真正想搞清楚嘅事：技術、金錢、生活方式與注意力。";
+const SITE_DESCRIPTION = "現有 AI 的 LLM (Large Language Models) 整理不了用家問過什麼內容，所以我做了這個。";
 
 function escapeXml(s: string) {
   return s

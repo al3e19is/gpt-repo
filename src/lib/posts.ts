@@ -4,7 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html"
-
+import remarkGfm from "remark-gfm";
 // import type { PostMeta } from "@/lib/posts"; // 如果同檔就唔洗
 
 /**
@@ -59,9 +59,14 @@ function estimateReadingTimeMinutes(text: string): number {
   return Math.max(1, Math.round(mins));
 }
 
-async function markdownToHtml(markdown: string): Promise<string> {
-  // sanitize: false 代表保留你 markdown 內嘅原生 HTML（如 <br>、<img>）
-  const processed = await remark().use(html, { sanitize: false }).process(markdown);
+
+export async function markdownToHtml(markdown: string): Promise<string> {
+  // sanitize: false = 保留 markdown 入面嘅原生 HTML
+  const processed = await remark()
+    .use(remarkGfm)                 // ✅ 開啟 GFM：table / task list / strikethrough
+    .use(html, { sanitize: false })
+    .process(markdown);
+
   return processed.toString();
 }
 

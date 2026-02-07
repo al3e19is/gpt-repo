@@ -16,7 +16,7 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <main className="prose prose-neutral dark:prose-invert max-w-none">
-      <h1>分類：{category}</h1>
+      <h1>分類：{normalized}</h1>
 
       {posts.length === 0 ? (
         <>

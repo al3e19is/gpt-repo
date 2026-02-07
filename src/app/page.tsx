@@ -21,7 +21,7 @@ export default async function HomePage() {
       <h1>INTP 想知的事</h1>
 
       <p>
-        現有 AI 的 LLM (Large Language Models) 整理不了用家問過什麼內容，所以我做了這個。
+        雖然現有 AI 的 LLM 好強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
       </p>
 
       {orderedEntries.map(([cat, catPosts]) => (
@@ -29,10 +29,9 @@ export default async function HomePage() {
           <h3>{cat}</h3>
 
           <ul>
-            {catPosts.slice(0, 5).map((p) => (
+            {catPosts.slice(0, 20).map((p) => (
               <li key={p.slug}>
                 <Link href={`/posts/${p.slug}`}>{p.title}</Link><br/>
-                <span className="text-sm text-gray-500"> · {p.readingTime} min</span>
               </li>
             ))}
           </ul>

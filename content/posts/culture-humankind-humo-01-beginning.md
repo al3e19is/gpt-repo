@@ -5,7 +5,6 @@ description: "從海德堡人到智人，用四個動物類比一次過講清楚
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
 ---
-# 尼安德塔人同現代人，到底係咩關係？  
 從海德堡人到智人，用四個動物類比一次過講清楚
 
 大家有冇試過諗：點解地球上而家淨低我哋現代人（Homo sapiens），其他古人類，例如尼安德塔人（Neanderthals），全部都消失咗？  

@@ -1,4 +1,4 @@
-const SITE_URL = "https://example.com"; 
+const SITE_URL = "https://intp-gpt-to-know.netlify.app/"; 
 // ⛔ 之後換成你真實 domain，例如 https://intp-things.com
 
 export async function GET() {
