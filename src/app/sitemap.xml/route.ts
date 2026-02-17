@@ -1,6 +1,6 @@
 import { getAllPostsMeta } from "@/lib/posts";
 
-const SITE_URL = "https://intp-gpt-to-know.netlify.app/"; 
+const SITE_URL = "https://intp-gpt-to-know.netlify.app"; 
 // 之後換成你真實 domain
 
 function isoDate(date?: string) {

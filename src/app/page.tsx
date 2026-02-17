@@ -24,7 +24,7 @@ export default async function HomePage() {
         alt="文章 Banner"
       />
       <p>
-        雖然現有 AI 的 LLM 好強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
+        雖然現有 AI 的大型語言模型 (LLM) 很強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
       </p>
 
       {orderedEntries.map(([cat, catPosts]) => (
@@ -32,7 +32,7 @@ export default async function HomePage() {
           <h3>{cat}</h3>
 
           <ul>
-            {catPosts.slice(0, 20).map((p) => (
+            {catPosts.slice(0, 5).map((p) => (
               <li key={p.slug}>
                 <Link href={`/posts/${p.slug}`}>{p.title}</Link><br/>
               </li>
