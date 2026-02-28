@@ -4,6 +4,7 @@ date: "2026-02-01"
 description: "為什麼我們的祖先是在非洲而不在中國？"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 
 現代人類（**智人 Homo sapiens**）的祖先起源於**非洲**，這是目前科學界最廣泛接受的主流觀點（稱為「**晚近非洲起源說**」或「**Out of Africa**」模型）。這個結論不是隨便猜的，而是來自多種獨立證據的強力匯聚。

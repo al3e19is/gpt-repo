@@ -4,6 +4,7 @@ date: "2026-01-31"
 description: "從海德堡人到智人，用四個動物類比一次過講清楚"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 從海德堡人到智人，用四個動物類比一次過講清楚
 

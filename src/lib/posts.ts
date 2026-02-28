@@ -22,6 +22,8 @@ export type PostFrontMatter = {
   description?: string;
   tags?: string[];
   category?: string;
+  series?: string; // ✅ 如果你有系列，就加呢行 
+
 };
 
 /**
@@ -37,6 +39,7 @@ export type Post = {
   tags?: string[];
   category?: string;
   description?: string;
+  series?: string; // ✅ 如果你有系列，就加呢行
 };
 
 /**
@@ -118,7 +121,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const description = normalizeString(fm.description);
   const category = normalizeString(fm.category);
   const tags = normalizeStringArray(fm.tags);
-
+  const series = normalizeString(fm.series);
   const contentHtml = await markdownToHtml(content);
   const readingTime = estimateReadingTimeMinutes(content);
 
@@ -131,6 +134,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     tags,
     category,
     description,
+    series,
   };
 }
 
@@ -226,3 +230,16 @@ export function groupByCategory(posts: PostMeta[]): Record<string, PostMeta[]> {
 
   return map;
 }
+
+
+export function getBanner(post: any) {
+  // 你現有的 fallback
+  if (!post) return "/banners/series/default.jpg";
+
+  // 如果文章有 series，就用 series banner
+  if (post.series) return `/banners/series/${post.series}.jpg`;
+
+  // 冇 series 就用 default
+  return "/banners/series/default.jpg";
+}
+

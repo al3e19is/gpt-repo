@@ -4,6 +4,7 @@ date: "2026-01-30"
 description: "南方古猿、直立人、海德堡人同現代智人四個階段嘅分別"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 
 （約 2000 字，簡單易明比較版）

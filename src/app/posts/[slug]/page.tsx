@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs } from "@/lib/posts";
+import { getPostBySlug, getPostSlugs, getBanner } from "@/lib/posts";
 
 type Props = {
   // ✅ Next.js 15+：params 係 Promise
@@ -59,6 +59,11 @@ export default async function PostPage({ params }: Props) {
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-none">
       <header className="mb-6">
+        <img
+              src={getBanner(post)}
+              alt={post.title}
+              className="w-full h-[420px] object-cover"
+        />
         <h1 className="mb-2">{post.title}</h1>
 
         <div className="text-sm text-gray-500">

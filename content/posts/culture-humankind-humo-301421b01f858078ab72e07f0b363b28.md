@@ -4,6 +4,7 @@ date: "2026-02-08"
 description: "Lady Hope 與達爾文「臨終否認進化論」"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 
 # Lady Hope 與達爾文「臨終否認進化論」
