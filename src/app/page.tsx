@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { getAllPostsMeta, groupByCategory } from "@/lib/posts";
 
-function getBanner(post: any) {
-  if (!post) return "/banners/series/default.jpg";
-  if (post.series) return `/banners/series/${post.series}.jpg`;
-  return "/banners/series/default.jpg";
+function getBanner(post: unknown) {
+  if (typeof post === "object" && post !== null && "banner" in post) {
+    const p = post as { banner?: string };
+    return p.banner ?? "/images/banners/default.jpg";
+  }
+  return "/images/banners/default.jpg";
 }
 export default async function HomePage() {
   const posts = await getAllPostsMeta();

@@ -232,14 +232,10 @@ export function groupByCategory(posts: PostMeta[]): Record<string, PostMeta[]> {
 }
 
 
-export function getBanner(post: any) {
-  // 你現有的 fallback
-  if (!post) return "/banners/series/default.jpg";
-
-  // 如果文章有 series，就用 series banner
-  if (post.series) return `/banners/series/${post.series}.jpg`;
-
-  // 冇 series 就用 default
-  return "/banners/series/default.jpg";
+export function getBanner(post: unknown) {
+  if (typeof post === "object" && post !== null && "banner" in post) {
+    const p = post as { banner?: string };
+    return p.banner ?? "/images/banners/default.jpg";
+  }
+  return "/images/banners/default.jpg";
 }
-
