@@ -4,6 +4,7 @@ date: "2026-02-05"
 description: "Bell Curve 與 Power Law"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+feature: true
 ---
 
 # Bell Curve 與 Power Law：其實係兩個宇宙

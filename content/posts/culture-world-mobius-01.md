@@ -1,5 +1,5 @@
 ---
-title: 一條紙帶如何顛覆人類對空間的理解
+title: 梅比斯之環︰一條紙帶如何顛覆人類對空間的理解
 date: "2026-02-18"
 description: 梅比斯之環是什麼
 tags:
@@ -7,6 +7,7 @@ tags:
   - history
   - human
 category: 世界文化
+feature: true
 ---
 # 梅比斯之環：一條紙帶如何顛覆人類對空間的理解
 

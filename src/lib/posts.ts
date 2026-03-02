@@ -23,6 +23,7 @@ export type PostFrontMatter = {
   tags?: string[];
   category?: string;
   series?: string; // ✅ 如果你有系列，就加呢行 
+  feature?: boolean; // ✅ 新增
 
 };
 
@@ -40,6 +41,7 @@ export type Post = {
   category?: string;
   description?: string;
   series?: string; // ✅ 如果你有系列，就加呢行
+  feature?: boolean; // ✅ 新增
 };
 
 /**
@@ -124,7 +126,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const series = normalizeString(fm.series);
   const contentHtml = await markdownToHtml(content);
   const readingTime = estimateReadingTimeMinutes(content);
-
+  const feature = Boolean(fm.feature); // ✅ 新增
   return {
     slug,
     title,
@@ -164,6 +166,8 @@ export async function getAllPostsMeta(): Promise<PostMeta[]> {
         description: normalizeString(fm.description),
         tags: normalizeStringArray(fm.tags),
         category: normalizeString(fm.category),
+        series: normalizeString(fm.series),
+        feature: Boolean(fm.feature), // ✅ 新增
       } satisfies PostMeta;
     })
   );

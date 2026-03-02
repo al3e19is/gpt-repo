@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPostsMeta, groupByCategory } from "@/lib/posts";
 import type { PostMeta } from "@/lib/posts"
+import BannerCarousel from "@/components/BannerCarousel";
 
 function getBanner(post: PostMeta | undefined) {
   if (!post) return "/banners/series/default.jpg"
@@ -31,6 +32,25 @@ export default async function HomePage() {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )[0];
 
+  const featured = posts
+    .filter((p) => p.feature === true)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const slides = featured.map((p) => ({
+    href: `/posts/${p.slug}`,
+    src: getBanner(p),
+    alt: p.title,
+    title: p.title,
+  }));
+
+  // console.log(
+  //   featured.map((p) => ({
+  //     slug: p.slug,
+  //     feature: p.feature,
+  //     series: p.series,
+  //     banner: getBanner(p),
+  //   }))
+  // );
 
   return (
     <main className="prose prose-neutral dark:prose-invert max-w-none">
@@ -39,12 +59,12 @@ export default async function HomePage() {
         src="/images/banner01.jpg"
         alt="文章 Banner"
       />
-
-
       <p>
         雖然現有 AI 的大型語言模型 (LLM) 很強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
       </p>
-      {latestPost && (
+
+      <BannerCarousel slides={slides} />
+      {/* {latestPost && (
         <section className="not-prose mb-8">
           <div className="text-3xl font-bold leading-tight mt-2 mb-6">
             <Link href={`/posts/${latestPost.slug}`}>讀最新文章</Link>
@@ -64,15 +84,15 @@ export default async function HomePage() {
                 </Link>
               </h2>
 
-              {/* 如果你有 excerpt / description 就打開呢行 */}
-              {/* <p className="mt-2 opacity-90">{latestPost.excerpt}</p> */}
             </div>
           </div>
 
 
         </section>
-      )}
-
+      )} */}
+      <div className="text-3xl font-bold mt-2 mb-6">
+        讀最新文章
+      </div>
       {orderedEntries.map(([cat, catPosts]) => (
         <section key={cat}  className="border-l-4 border-neutral-400 dark:border-neutral-600 pl-4 mb-6">
           <h3>{cat}</h3>
