@@ -4,6 +4,7 @@ date: "2026-02-03"
 description: "生物學上我們是南方古猿的演化產物，文化上我們是炎黃故事的運行平台。"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 
 

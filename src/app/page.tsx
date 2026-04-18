@@ -60,7 +60,13 @@ export default async function HomePage() {
         alt="文章 Banner"
       />
       <p>
-        雖然現有 AI 的大型語言模型 (LLM) 很強大，<br/>但是GOOGLE／GROK／CHATGPT整理不了用家問過什麼內容，<br/>所以我做了這個。
+        雖然現有 AI 的大型語言模型 (LLM) 很強大，
+        <br/>但是GEMINI／GROK／CHATGPT整理不了用家問過什麼內容，
+        <br/>所以我做了這個。
+        <br/>我會把自己真正想搞清楚的事寫在這裡，可能是技術、金錢、生活方式、注意力管理等等。
+        <br/>希望能幫到同樣想搞清楚這些事的你。
+        <br/>BY THE WAY，呢個網站係用 Next.js 13.4 最新嘅 App Router 寫嘅，係我第一次用，邊寫邊學。
+        <br/>同時，我放了寫於十年前的小說。
       </p>
 
       <BannerCarousel slides={slides} />

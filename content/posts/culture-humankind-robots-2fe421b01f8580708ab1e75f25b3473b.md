@@ -3,6 +3,7 @@ title: "機械人如果擁有人類意識，算唔算人類？ "
 date: "2026-02-02"
 tags: ["culture", "games", "history", "human"]
 category: "世界文化"
+series: "humankind-humo"
 ---
 
 
