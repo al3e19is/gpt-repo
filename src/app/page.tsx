@@ -1,16 +1,6 @@
 import Link from "next/link";
-import { getAllPostsMeta, groupByCategory } from "@/lib/posts";
-import type { PostMeta } from "@/lib/posts"
+import { getAllPostsMeta, groupByCategory, getBanner } from "@/lib/posts";
 import BannerCarousel from "@/components/BannerCarousel";
-
-function getBanner(post: PostMeta | undefined) {
-  if (!post) return "/banners/series/default.jpg"
-
-  if (post.series)
-    return `/banners/series/${post.series}.jpg`
-
-  return "/banners/series/default.jpg"
-}
 
 
 export default async function HomePage() {
@@ -28,9 +18,10 @@ export default async function HomePage() {
     ...Object.entries(grouped).filter(([cat]) => !order.includes(cat)),
   ].filter(([, arr]) => arr.length > 0); // 無文章就唔 show
 
-  const latestPost = [...posts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )[0];
+  // 每日一文：按 slug 字母排序後，以天數 mod 總數循環
+  const stablePosts = [...posts].sort((a, b) => a.slug.localeCompare(b.slug));
+  const dayIndex = Math.floor(Date.now() / 86_400_000);
+  const todaysPick = stablePosts[dayIndex % stablePosts.length];
 
   const featured = posts
     .filter((p) => p.feature === true)
@@ -70,32 +61,30 @@ export default async function HomePage() {
       </p>
 
       <BannerCarousel slides={slides} />
-      {/* {latestPost && (
-        <section className="not-prose mb-8">
-          <div className="text-3xl font-bold leading-tight mt-2 mb-6">
-            <Link href={`/posts/${latestPost.slug}`}>讀最新文章</Link>
+
+      {/* 每日一文 */}
+      <section className="not-prose my-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-3">今日推薦</p>
+        <Link href={`/posts/${todaysPick.slug}`} className="group block relative overflow-hidden rounded-2xl">
+          <img
+            src={getBanner(todaysPick)}
+            alt={todaysPick.title}
+            className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            {todaysPick.category && (
+              <span className="text-xs uppercase tracking-wider opacity-70 mb-1 block">{todaysPick.category}</span>
+            )}
+            <h2 className="text-xl font-bold leading-snug mb-1">{todaysPick.title}</h2>
+            {todaysPick.description && (
+              <p className="text-sm opacity-75 line-clamp-2">{todaysPick.description}</p>
+            )}
+            <p className="text-xs opacity-50 mt-2">{todaysPick.date} · {todaysPick.readingTime} min read</p>
           </div>
-          <div className="relative overflow-hidden rounded-lg">
-            <img
-              src={getBanner(latestPost)}
-              alt={latestPost.title}
-              className="w-full h-[420px] object-cover"
-            />
-            <div className="absolute inset-0 bg-black/35" />
-            <div className="absolute bottom-6 left-6 right-6 text-white">
-              <p className="text-sm opacity-90 mb-2">{latestPost.date}</p>
-              <h2 className="text-3xl font-bold leading-tight">
-                <Link href={`/posts/${latestPost.slug}`} className="no-underline text-white">
-                  {latestPost.title}
-                </Link>
-              </h2>
+        </Link>
+      </section>
 
-            </div>
-          </div>
-
-
-        </section>
-      )} */}
       <div className="text-3xl font-bold mt-2 mb-6">
         讀最新文章
       </div>

@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs, getBanner } from "@/lib/posts";
+import RandomPostButton from "@/components/RandomPostButton";
 
 type Props = {
-  // ✅ Next.js 15+：params 係 Promise
   params: Promise<{ slug: string }>;
 };
 
-// 1) Static generate all /posts/[slug] at build time
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
-// 2) SEO Metadata per post
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params; // ✅ 先 await
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -51,18 +49,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PostPage({ params }: Props) {
-  const { slug } = await params; // ✅ 先 await
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) notFound();
+
+  const allSlugs = (await getPostSlugs()).filter((s) => s !== slug);
 
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-none">
       <header className="mb-6">
         <img
-              src={getBanner(post)}
-              alt={post.title}
-              className="w-full h-[420px] object-cover"
+          src={getBanner(post)}
+          alt={post.title}
+          className="w-full h-[420px] object-cover"
         />
         <h1 className="mb-2">{post.title}</h1>
 
@@ -94,10 +94,8 @@ export default async function PostPage({ params }: Props) {
       </header>
 
       <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+
+      <RandomPostButton slugs={allSlugs} />
     </article>
   );
 }
-import fs from "fs/promises";
-import path from "path";
-import { remark } from "remark";
-import html from "remark-html"; 
