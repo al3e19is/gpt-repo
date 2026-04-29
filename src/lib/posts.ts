@@ -224,6 +224,12 @@ export async function getAllPosts() {
     (a, b) => +new Date(b.date) - +new Date(a.date)
   );
 }
+export function getDailyPick(posts: PostMeta[]): PostMeta {
+  const stable = [...posts].sort((a, b) => a.slug.localeCompare(b.slug));
+  const dayIndex = Math.floor(Date.now() / 86_400_000);
+  return stable[dayIndex % stable.length];
+}
+
 export function groupByCategory(posts: PostMeta[]): Record<string, PostMeta[]> {
   const map: Record<string, PostMeta[]> = {};
 

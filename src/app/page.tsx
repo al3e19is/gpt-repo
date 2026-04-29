@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { connection } from "next/server";
-import { getAllPostsMeta, groupByCategory, getBanner } from "@/lib/posts";
+import { getAllPostsMeta, groupByCategory, getBanner, getDailyPick } from "@/lib/posts";
 import BannerCarousel from "@/components/BannerCarousel";
+
+export const dynamic = "force-dynamic";
 
 
 export default async function HomePage() {
-  await connection();
   const posts = await getAllPostsMeta();
 
   // 你想固定順序就放呢度
@@ -20,10 +20,7 @@ export default async function HomePage() {
     ...Object.entries(grouped).filter(([cat]) => !order.includes(cat)),
   ].filter(([, arr]) => arr.length > 0); // 無文章就唔 show
 
-  // 每日一文：按 slug 字母排序後，以天數 mod 總數循環
-  const stablePosts = [...posts].sort((a, b) => a.slug.localeCompare(b.slug));
-  const dayIndex = Math.floor(Date.now() / 86_400_000);
-  const todaysPick = stablePosts[dayIndex % stablePosts.length];
+  const todaysPick = getDailyPick(posts);
 
   const featured = posts
     .filter((p) => p.feature === true)
