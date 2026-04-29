@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { getAllPostsMeta, groupByCategory, getBanner } from "@/lib/posts";
 import BannerCarousel from "@/components/BannerCarousel";
 
 
 export default async function HomePage() {
+  await connection();
   const posts = await getAllPostsMeta();
 
   // 你想固定順序就放呢度
