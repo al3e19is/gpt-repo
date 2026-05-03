@@ -11,7 +11,7 @@ export default function AboutTagPage() {
       <article className="prose prose-neutral dark:prose-invert max-w-none">
         <h1>關於這個站</h1>
         <img
-            src="/images/banner02.png"
+            src="/images/banner02.jpg"
             alt="文章 Banner"
         />
         <p>
