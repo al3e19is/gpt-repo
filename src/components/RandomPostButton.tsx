@@ -14,7 +14,8 @@ export default function RandomPostButton({ slugs }: { slugs: string[] }) {
   return (
     <button
       onClick={goRandom}
-      className="mt-12 w-full rounded-xl border border-neutral-300 dark:border-neutral-700 py-4 text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors cursor-pointer"
+      className="mt-12 w-full rounded-xl py-4 text-sm font-medium card-hover transition-colors cursor-pointer"
+      style={{ border: "1px solid var(--border)", color: "var(--text-2)" }}
     >
       隨機文章 →
     </button>

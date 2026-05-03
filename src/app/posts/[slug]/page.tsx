@@ -104,7 +104,7 @@ export default async function PostPage({ params }: Props) {
 
       {/* Content */}
       <div
-        className="prose prose-neutral dark:prose-invert max-w-none
+        className="prose prose-invert max-w-none
           prose-headings:font-bold prose-headings:tracking-tight
           prose-a:text-accent prose-a:no-underline hover:prose-a:underline
           prose-img:rounded-lg"

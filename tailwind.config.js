@@ -10,12 +10,13 @@ module.exports = {
         zen: ["var(--font-zen)"],
       },
       colors: {
-        accent: "#b45309",
+        accent: "#c8a96e",
+        "accent-dim": "#8a7048",
       },
     },
   },
   plugins: [
     require("@tailwindcss/typography"),
   ],
-  darkMode: "media",
+  darkMode: "class",
 };
