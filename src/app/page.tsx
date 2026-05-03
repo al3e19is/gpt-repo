@@ -1,70 +1,25 @@
 import Link from "next/link";
-import { getAllPostsMeta, groupByCategory, getBanner, getDailyPick } from "@/lib/posts";
-import BannerCarousel from "@/components/BannerCarousel";
+import { getAllPostsMeta, getBanner, getDailyPick } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
-
 export default async function HomePage() {
   const posts = await getAllPostsMeta();
-
-  // 你想固定順序就放呢度
-  const order = ["finance", "dev", "history"];
-
-  // grouped: Record<string, PostMeta[]>
-  const grouped = groupByCategory(posts);
-
-  // 依 order 排好（冇寫入 order 的分類會排到最後）
-  const orderedEntries = [
-    ...order.map((cat) => [cat, grouped[cat] ?? []] as const),
-    ...Object.entries(grouped).filter(([cat]) => !order.includes(cat)),
-  ].filter(([, arr]) => arr.length > 0); // 無文章就唔 show
-
   const todaysPick = getDailyPick(posts);
-
-  const featured = posts
-    .filter((p) => p.feature === true)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  const slides = featured.map((p) => ({
-    href: `/posts/${p.slug}`,
-    src: getBanner(p),
-    alt: p.title,
-    title: p.title,
-  }));
-
-  // console.log(
-  //   featured.map((p) => ({
-  //     slug: p.slug,
-  //     feature: p.feature,
-  //     series: p.series,
-  //     banner: getBanner(p),
-  //   }))
-  // );
+  const recentPosts = posts.slice(0, 8);
 
   return (
-    <main className="prose prose-neutral dark:prose-invert max-w-none">
-      <h1>INTP 想知的事</h1>
-      <img
-        src="/images/banner01.jpg"
-        alt="文章 Banner"
-      />
-      <p>
-        雖然現有 AI 的大型語言模型 (LLM) 很強大，
-        <br/>但是GEMINI／GROK／CHATGPT整理不了用家問過什麼內容，
-        <br/>所以我做了這個。
-        <br/>我會把自己真正想搞清楚的事寫在這裡，可能是技術、金錢、生活方式、注意力管理等等。
-        <br/>希望能幫到同樣想搞清楚這些事的你。
-        <br/>呢個網站係用 Next.js 13.4 最新嘅 App Router 寫嘅，係我第一次用，邊寫邊學。
-        <br/>同時，我放了寫於十年前的小說。
-      </p>
-
-      <BannerCarousel slides={slides} />
+    <div className="space-y-12">
 
       {/* 每日一文 */}
-      <section className="not-prose my-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-3">今日推薦</p>
-        <Link href={`/posts/${todaysPick.slug}`} className="group block relative overflow-hidden rounded-2xl">
+      <section>
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+          今日推薦
+        </p>
+        <Link
+          href={`/posts/${todaysPick.slug}`}
+          className="group block relative overflow-hidden rounded-2xl"
+        >
           <img
             src={getBanner(todaysPick)}
             alt={todaysPick.title}
@@ -73,38 +28,68 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
             {todaysPick.category && (
-              <span className="text-xs uppercase tracking-wider opacity-70 mb-1 block">{todaysPick.category}</span>
+              <span className="text-xs uppercase tracking-wider opacity-60 mb-1 block">
+                {todaysPick.category}
+              </span>
             )}
             <h2 className="text-xl font-bold leading-snug mb-1">{todaysPick.title}</h2>
             {todaysPick.description && (
-              <p className="text-sm opacity-75 line-clamp-2">{todaysPick.description}</p>
+              <p className="text-sm opacity-70 line-clamp-2">{todaysPick.description}</p>
             )}
-            <p className="text-xs opacity-50 mt-2">{todaysPick.date} · {todaysPick.readingTime} min read</p>
+            <p className="text-xs opacity-50 mt-2">
+              {todaysPick.date} · {todaysPick.readingTime} min read
+            </p>
           </div>
         </Link>
       </section>
 
-      <div className="text-3xl font-bold mt-2 mb-6">
-        讀最新文章
-      </div>
-      {orderedEntries.map(([cat, catPosts]) => (
-        <section key={cat}  className="border-l-4 border-neutral-400 dark:border-neutral-600 pl-4 mb-6">
-          <h3>{cat}</h3>
+      {/* 最新文章 */}
+      <section>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--muted)" }}>
+          最新文章
+        </p>
+        <div style={{ borderTop: "1px solid var(--border)" }}>
+          {recentPosts.map((p) => (
+            <article
+              key={p.slug}
+              className="py-4 group"
+              style={{ borderBottom: "1px solid var(--border)" }}
+            >
+              <div
+                className="flex items-center gap-2 mb-1.5 text-xs"
+                style={{ color: "var(--muted)" }}
+              >
+                {p.date && <time>{p.date}</time>}
+                {p.category && (
+                  <span className="px-2 py-0.5 rounded-full border border-accent/30 text-accent">
+                    {p.category}
+                  </span>
+                )}
+                <span className="ml-auto">{p.readingTime} min</span>
+              </div>
+              <Link href={`/posts/${p.slug}`}>
+                <h3
+                  className="font-semibold group-hover:text-accent transition-colors leading-snug"
+                  style={{ color: "var(--fg)" }}
+                >
+                  {p.title}
+                </h3>
+                {p.description && (
+                  <p className="mt-0.5 text-sm line-clamp-1" style={{ color: "var(--muted)" }}>
+                    {p.description}
+                  </p>
+                )}
+              </Link>
+            </article>
+          ))}
+        </div>
+        <div className="mt-5 text-right">
+          <Link href="/posts" className="text-sm text-accent hover:underline">
+            查看全部文章 →
+          </Link>
+        </div>
+      </section>
 
-          <ul>
-            {catPosts.slice(0, 5).map((p) => (
-              <li key={p.slug}>
-                <Link href={`/posts/${p.slug}`}>{p.title}</Link><br/>
-              </li>
-            ))}
-          </ul>
-
-          <p>
-            <Link href={`/category/${cat}`}>→ 查看 {cat} 全部文章</Link>
-          </p>
-        </section>
-      ))}
-
-    </main>
+    </div>
   );
 }

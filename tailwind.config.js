@@ -9,11 +9,13 @@ module.exports = {
       fontFamily: {
         zen: ["var(--font-zen)"],
       },
-    },  
+      colors: {
+        accent: "#b45309",
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
   ],
-  darkMode: "class",
-
+  darkMode: "media",
 };

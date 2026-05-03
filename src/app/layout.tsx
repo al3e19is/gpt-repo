@@ -10,53 +10,37 @@ export const metadata: Metadata = {
   description: "記錄一啲真正想搞清楚嘅事：技術、金錢、生活方式與注意力。",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-HK">
-      <body className="bg-white text-gray-900 dark:bg-neutral-950 dark:text-gray-100">
-        {/* Header */}
-        <header className="border-b border-gray-200 dark:border-gray-800">
+      <body style={{ background: "var(--bg)", color: "var(--fg)" }}>
+        {/* Accent stripe */}
+        <div className="h-[3px] bg-accent" />
+
+        <header className="border-b" style={{ borderColor: "var(--border)" }}>
           <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
-            {/* Site title */}
-            <Link href="/" className="text-lg font-semibold tracking-tight">
+            <Link
+              href="/"
+              className="font-bold tracking-tight hover:text-accent transition-colors"
+              style={{ color: "var(--fg)" }}
+            >
               INTP 想知的事
             </Link>
 
-            {/* Nav */}
-            <nav className="flex items-center gap-4 text-sm">
-              <Link
-                href="/posts"
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-              >
-                文章
-              </Link>
-              <Link href="/category"
-                              className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                              >
-                                分類</Link>
-
-              <Link
-                href="/about"
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-              >
-                關於
-              </Link>
+            <nav className="flex items-center gap-5 text-sm" style={{ color: "var(--muted)" }}>
+              <Link href="/posts" className="hover:text-accent transition-colors">文章</Link>
+              <Link href="/category" className="hover:text-accent transition-colors">分類</Link>
+              <Link href="/about" className="hover:text-accent transition-colors">關於</Link>
             </nav>
           </div>
         </header>
 
-        {/* Page content */}
-        <main className="mx-auto max-w-3xl px-4 py-8">
+        <main className="mx-auto max-w-3xl px-4 py-10">
           {children}
         </main>
 
-        {/* Footer（先留位，之後再加） */}
-        <footer className="mt-16 border-t border-gray-200 dark:border-gray-800">
-          <div className="mx-auto max-w-3xl px-4 py-6 text-sm text-gray-500">
+        <footer className="mt-16 border-t" style={{ borderColor: "var(--border)" }}>
+          <div className="mx-auto max-w-3xl px-4 py-6 text-sm" style={{ color: "var(--muted)" }}>
             © {new Date().getFullYear()} INTP 想知的事
           </div>
         </footer>

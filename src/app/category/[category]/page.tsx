@@ -7,7 +7,6 @@ type Props = {
 
 export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
-
   const normalized = decodeURIComponent(category).trim().toLowerCase();
 
   const posts = (await getAllPostsMeta()).filter(
@@ -15,31 +14,50 @@ export default async function CategoryPage({ params }: Props) {
   );
 
   return (
-    <main className="prose prose-neutral dark:prose-invert max-w-none">
-      <h1>分類：{normalized}</h1>
+    <div>
+      <div className="mb-6">
+        <Link href="/category" className="text-xs text-accent hover:underline">
+          ← 全部分類
+        </Link>
+        <h1 className="text-2xl font-bold mt-2" style={{ color: "var(--fg)" }}>
+          {decodeURIComponent(category)}
+        </h1>
+        <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>
+          {posts.length} 篇文章
+        </p>
+      </div>
 
       {posts.length === 0 ? (
-        <>
-          <p className="text-gray-600 dark:text-gray-300">
-            呢個分類暫時未有文章。（提示：請檢查 md front-matter 的 category 係咪同 URL 一樣）
-          </p>
-          <p>
-            <Link href="/category">→ 返回分類列表</Link>
-          </p>
-        </>
+        <p style={{ color: "var(--muted)" }}>呢個分類暫時未有文章。</p>
       ) : (
-        <ul>
+        <div style={{ borderTop: "1px solid var(--border)" }}>
           {posts.map((p) => (
-            <li key={p.slug}>
-              <Link href={`/posts/${p.slug}`}>{p.title}</Link>
-              <span className="text-sm text-gray-500">
-                {" "}
-                · {p.date} · {p.readingTime} min
-              </span>
-            </li>
+            <article
+              key={p.slug}
+              className="py-4 group"
+              style={{ borderBottom: "1px solid var(--border)" }}
+            >
+              <div className="flex items-center gap-2 mb-1.5 text-xs" style={{ color: "var(--muted)" }}>
+                {p.date && <time>{p.date}</time>}
+                <span className="ml-auto">{p.readingTime} min</span>
+              </div>
+              <Link href={`/posts/${p.slug}`}>
+                <h2
+                  className="font-semibold group-hover:text-accent transition-colors leading-snug"
+                  style={{ color: "var(--fg)" }}
+                >
+                  {p.title}
+                </h2>
+                {p.description && (
+                  <p className="mt-0.5 text-sm line-clamp-2" style={{ color: "var(--muted)" }}>
+                    {p.description}
+                  </p>
+                )}
+              </Link>
+            </article>
           ))}
-        </ul>
+        </div>
       )}
-    </main>
+    </div>
   );
 }

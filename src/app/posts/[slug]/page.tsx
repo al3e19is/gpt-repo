@@ -35,16 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description,
-    },
+    openGraph: { title, description, type: "article" },
+    twitter: { card: "summary", title, description },
   };
 }
 
@@ -57,28 +49,49 @@ export default async function PostPage({ params }: Props) {
   const allSlugs = (await getPostSlugs()).filter((s) => s !== slug);
 
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-none">
-      <header className="mb-6">
+    <article>
+      {/* Banner */}
+      <div className="overflow-hidden rounded-xl mb-6">
         <img
           src={getBanner(post)}
           alt={post.title}
-          className="w-full h-[420px] object-cover"
+          className="w-full h-[260px] object-cover"
         />
-        <h1 className="mb-2">{post.title}</h1>
+      </div>
 
-        <div className="text-sm text-gray-500">
-          {post.date ? <time dateTime={post.date}>{post.date}</time> : null}
-          {post.date ? " · " : null}
-          {post.readingTime} min read
-          {post.category ? ` · ${post.category}` : null}
+      {/* Header */}
+      <header className="mb-8">
+        {/* Meta row */}
+        <div className="flex flex-wrap items-center gap-2 mb-3 text-xs" style={{ color: "var(--muted)" }}>
+          {post.category && (
+            <span className="px-2 py-0.5 rounded-full border border-accent/30 text-accent">
+              {post.category}
+            </span>
+          )}
+          {post.date && <time dateTime={post.date}>{post.date}</time>}
+          <span>{post.readingTime} min read</span>
         </div>
 
+        <h1 className="text-2xl font-bold leading-snug mb-3" style={{ color: "var(--fg)" }}>
+          {post.title}
+        </h1>
+
+        {post.description && (
+          <p className="text-base leading-relaxed" style={{ color: "var(--muted)" }}>
+            {post.description}
+          </p>
+        )}
+
         {post.tags?.length ? (
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {post.tags.map((t) => (
               <span
                 key={t}
-                className="text-xs px-2 py-1 rounded border border-gray-300/40 dark:border-gray-700/60"
+                className="text-xs px-2 py-0.5 rounded"
+                style={{
+                  background: "var(--border)",
+                  color: "var(--muted)",
+                }}
               >
                 #{t}
               </span>
@@ -86,14 +99,17 @@ export default async function PostPage({ params }: Props) {
           </div>
         ) : null}
 
-        {post.description ? (
-          <p className="mt-4 text-base text-gray-600 dark:text-gray-300">
-            {post.description}
-          </p>
-        ) : null}
+        <hr className="mt-6" style={{ borderColor: "var(--border)" }} />
       </header>
 
-      <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      {/* Content */}
+      <div
+        className="prose prose-neutral dark:prose-invert max-w-none
+          prose-headings:font-bold prose-headings:tracking-tight
+          prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+          prose-img:rounded-lg"
+        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+      />
 
       <RandomPostButton slugs={allSlugs} />
     </article>
