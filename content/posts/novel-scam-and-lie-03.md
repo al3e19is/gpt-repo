@@ -3,6 +3,7 @@ title: "03 -「我只是不滿這種學校。」"
 date: "2026-01-23"
 description: "「我只是不滿這種學校。」"
 category: "小說 - 令人戰慄的傳銷陷阱"
+series: "novel-scam-and-lie"
 ---
 
 ## 03 — 「我只是不滿這種學校。」

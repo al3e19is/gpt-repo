@@ -3,6 +3,7 @@ title: "01 - 今日是ALEVEL放榜日"
 date: "2026-01-23"
 description: "今日是ALEVEL放榜日。"
 category: "小說 - 令人戰慄的傳銷陷阱"
+series: "novel-scam-and-lie"
 ---
 
 ## 01 — 今日是ALEVEL放榜日

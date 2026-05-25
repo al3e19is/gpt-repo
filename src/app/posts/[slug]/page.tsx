@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getPostSlugs, getBanner } from "@/lib/posts";
+import { getPostBySlug, getPostSlugs, getBanner, getSeriesPosts } from "@/lib/posts";
 import RandomPostButton from "@/components/RandomPostButton";
+import ChapterNav from "@/components/ChapterNav";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -47,6 +48,7 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   const allSlugs = (await getPostSlugs()).filter((s) => s !== slug);
+  const seriesPosts = post.series ? await getSeriesPosts(post.series) : [];
 
   return (
     <article>
@@ -101,6 +103,11 @@ export default async function PostPage({ params }: Props) {
 
         <hr className="mt-6" style={{ borderColor: "var(--border)" }} />
       </header>
+
+      {/* Chapter nav — only shown for series posts */}
+      {seriesPosts.length > 1 && (
+        <ChapterNav currentSlug={slug} posts={seriesPosts} />
+      )}
 
       {/* Content */}
       <div

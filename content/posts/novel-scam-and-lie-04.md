@@ -3,6 +3,7 @@ title: "04 - 我是唯一知道Linda在班上埋了炸藥的人"
 date: "2026-01-23"
 description: "04 - 我是唯一知道Linda在班上埋了炸藥的人"
 category: "小說 - 令人戰慄的傳銷陷阱"
+series: "novel-scam-and-lie"
 ---
 
 ## 04 — 我是唯一知道Linda在班上埋了炸藥的人

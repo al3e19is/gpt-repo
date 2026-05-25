@@ -126,7 +126,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const series = normalizeString(fm.series);
   const contentHtml = await markdownToHtml(content);
   const readingTime = estimateReadingTimeMinutes(content);
-  const feature = Boolean(fm.feature); // ✅ 新增
+  const feature = Boolean(fm.feature);
   return {
     slug,
     title,
@@ -137,6 +137,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     category,
     description,
     series,
+    feature,
   };
 }
 
@@ -224,6 +225,16 @@ export async function getAllPosts() {
     (a, b) => +new Date(b.date) - +new Date(a.date)
   );
 }
+/**
+ * 取得同一 series 的所有章節，按 slug 升序排列
+ */
+export async function getSeriesPosts(series: string): Promise<PostMeta[]> {
+  const all = await getAllPostsMeta();
+  return all
+    .filter((p) => p.series === series)
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
 export function getDailyPick(posts: PostMeta[]): PostMeta {
   const stable = [...posts].sort((a, b) => a.slug.localeCompare(b.slug));
   const dayIndex = Math.floor(Date.now() / 86_400_000);

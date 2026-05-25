@@ -30,6 +30,9 @@ body {
 .card-hover { transition: background 0.2s; }
 .card-hover:hover { background: var(--surface); }
 
+.chapter-link { transition: background 0.15s; }
+.chapter-link:hover { background: var(--surface2); }
+
 .view-all-link {
   color: var(--text-3);
   border: 1px solid var(--border);

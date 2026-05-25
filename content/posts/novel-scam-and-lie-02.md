@@ -3,6 +3,7 @@ title: "02 - 時間回溯到三個禮拜前"
 date: "2026-01-23"
 description: "時間回溯到三個禮拜前"
 category: "小說 - 令人戰慄的傳銷陷阱"
+series: "novel-scam-and-lie"
 ---
 
 ## 02 — 時間回溯到三個禮拜前
