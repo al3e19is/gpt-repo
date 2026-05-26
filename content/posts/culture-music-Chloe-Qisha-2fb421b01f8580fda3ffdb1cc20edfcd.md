@@ -4,6 +4,8 @@ date: "2026-02-02"
 description: "為何我們在虛無時代需要 Chloe Qisha？"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"
+series: "pop-music"
+
 ---
 ## 前言：為何我們在虛無時代需要 Chloe Qisha？
 

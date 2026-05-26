@@ -4,6 +4,8 @@ date: "2026-01-24"
 description: "為何我們在虛無時代需要 Men I Trust?"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"
+series: "pop-music"
+
 ---
 
 ### 前言：來自蒙特利爾的「鬆弛感」代名詞

@@ -4,6 +4,8 @@ date: "2026-02-05"
 description: "流行音樂如何由文化變成格式，90s00s10s"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"
+series: "pop-music"
+
 ---
 
 

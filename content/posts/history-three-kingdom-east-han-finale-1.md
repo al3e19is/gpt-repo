@@ -4,6 +4,8 @@ date: "2026-01-23"
 description: "以及為何故事總是從劉、曹、孫開始，卻不應該在他們身上理解"
 tags: ["threekingdom", "games", "history", "politics"]
 category: "世界歷史"
+series: "three-kingdom"
+
 ---
 
 # 東漢末期的軍閥割據是如何形成的  
