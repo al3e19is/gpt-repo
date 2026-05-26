@@ -4,6 +4,8 @@ date: "2026-01-23"
 description: "一個由童年故事開始，卻從來未被認真解釋過的政治假設"
 tags: ["threekingdom", "games", "history", "politics"]
 category: "世界歷史"
+series: "three-kingdom"
+
 ---
 
 # 為何曹沖被視為最理想的繼承人  

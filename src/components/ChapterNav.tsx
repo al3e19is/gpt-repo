@@ -25,14 +25,14 @@ export default function ChapterNav({ currentSlug, posts }: Props) {
           style={{
             fontFamily: "monospace",
             fontSize: "0.6rem",
-            color: "var(--text-3)",
+            color: "var(--text-2)",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
           }}
         >
           章節導覽
         </span>
-        <span style={{ fontSize: "0.72rem", color: "var(--text-3)" }}>
+        <span style={{ fontSize: "0.72rem", color: "var(--text-2)" }}>
           · {posts.length} 章
         </span>
       </div>
@@ -56,11 +56,12 @@ export default function ChapterNav({ currentSlug, posts }: Props) {
                 color: "inherit",
               }}
             >
+              {/* Chapter number */}
               <span
                 style={{
                   fontFamily: "monospace",
                   fontSize: "0.6rem",
-                  color: isCurrent ? "var(--accent)" : "var(--text-3)",
+                  color: isCurrent ? "var(--accent)" : "var(--text-2)",
                   flexShrink: 0,
                   width: "1.8rem",
                 }}
@@ -68,23 +69,25 @@ export default function ChapterNav({ currentSlug, posts }: Props) {
                 {String(i + 1).padStart(2, "0")}
               </span>
 
+              {/* Chapter title */}
               <span
                 className="flex-1"
                 style={{
                   fontSize: "0.88rem",
-                  color: isCurrent ? "var(--accent)" : "var(--text-2)",
+                  color: isCurrent ? "var(--accent)" : "var(--text-1)",
                   lineHeight: 1.4,
                 }}
               >
                 {p.title}
               </span>
 
+              {/* Current indicator */}
               {isCurrent && (
                 <span
                   style={{
                     fontFamily: "monospace",
                     fontSize: "0.6rem",
-                    color: "var(--text-3)",
+                    color: "var(--text-2)",
                     flexShrink: 0,
                   }}
                 >
@@ -107,7 +110,7 @@ export default function ChapterNav({ currentSlug, posts }: Props) {
                 style={{
                   textDecoration: "none",
                   borderRight: "1px solid var(--border)",
-                  color: "var(--text-3)",
+                  color: "var(--text-2)",
                   fontFamily: "monospace",
                   fontSize: "0.65rem",
                   letterSpacing: "0.08em",
@@ -124,7 +127,7 @@ export default function ChapterNav({ currentSlug, posts }: Props) {
                 className="chapter-link flex items-center justify-end gap-2 px-5 py-3"
                 style={{
                   textDecoration: "none",
-                  color: "var(--text-3)",
+                  color: "var(--text-2)",
                   fontFamily: "monospace",
                   fontSize: "0.65rem",
                   letterSpacing: "0.08em",

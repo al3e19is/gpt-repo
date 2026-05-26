@@ -11,7 +11,6 @@ export default function ChapterFooterNav({ currentSlug, posts }: Props) {
   const prev = idx > 0 ? posts[idx - 1] : null;
   const next = idx < posts.length - 1 ? posts[idx + 1] : null;
 
-  // Both null only if single-chapter series — shouldn't happen, but guard anyway
   if (!prev && !next) return null;
 
   return (
@@ -25,19 +24,19 @@ export default function ChapterFooterNav({ currentSlug, posts }: Props) {
           <Link
             href={`/posts/${prev.slug}`}
             className="chapter-link flex flex-col gap-1 px-5 py-4"
-            style={{ textDecoration: "none", height: "100%", display: "flex" }}
+            style={{ textDecoration: "none" }}
           >
             <span
               style={{
                 fontFamily: "monospace",
                 fontSize: "0.6rem",
-                color: "var(--text-3)",
+                color: "var(--text-2)",
                 letterSpacing: "0.12em",
               }}
             >
               ← 上一章
             </span>
-            <span style={{ fontSize: "0.88rem", color: "var(--text-2)", lineHeight: 1.4 }}>
+            <span style={{ fontSize: "0.88rem", color: "var(--text-1)", lineHeight: 1.4 }}>
               {prev.title}
             </span>
           </Link>
@@ -50,13 +49,13 @@ export default function ChapterFooterNav({ currentSlug, posts }: Props) {
           <Link
             href={`/posts/${next.slug}`}
             className="chapter-link flex flex-col items-end gap-1 px-5 py-4"
-            style={{ textDecoration: "none", height: "100%", display: "flex" }}
+            style={{ textDecoration: "none" }}
           >
             <span
               style={{
                 fontFamily: "monospace",
                 fontSize: "0.6rem",
-                color: "var(--text-3)",
+                color: "var(--text-2)",
                 letterSpacing: "0.12em",
               }}
             >
@@ -65,7 +64,7 @@ export default function ChapterFooterNav({ currentSlug, posts }: Props) {
             <span
               style={{
                 fontSize: "0.88rem",
-                color: "var(--text-2)",
+                color: "var(--text-1)",
                 lineHeight: 1.4,
                 textAlign: "right",
               }}

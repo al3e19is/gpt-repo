@@ -1,5 +1,5 @@
 ---
-title: "達爾文「臨終否認進化論」"
+title: "達爾文臨終否認進化論?"
 date: "2026-02-08"
 description: "Lady Hope 與達爾文「臨終否認進化論」"
 tags: ["culture", "games", "history", "human"]

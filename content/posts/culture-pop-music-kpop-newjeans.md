@@ -4,6 +4,7 @@ date: "2026-01-18"
 description: "從 NewJeans 官司看韓國演藝圈的十年變革與法律曙光"
 tags: ["culture", "music", "Pop", ]
 category: "音樂娛樂"
+series: "pop-music"
 ---
 
 ## 📌 前言：當「完美商品」開始說話
