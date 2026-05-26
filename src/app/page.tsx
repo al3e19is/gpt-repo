@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { getAllPostsMeta, getBanner, getDailyPick } from "@/lib/posts";
+import type { PostMeta } from "@/lib/posts";
+import HomeTabs from "@/components/HomeTabs";
+import type { SeriesGroup } from "@/components/HomeTabs";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +13,10 @@ const QUESTIONS = [
   { num: "04", text: "量子力學和佛教的「空」，真的有關聯還是只是比喻？", cat: "物理 · 哲學" },
   { num: "05", text: "K-Pop 的工業模式，會輸出到其他文化嗎？", cat: "音樂 · 文化" },
 ];
+
+/** Treat only posts whose category starts with "小說" as a novel */
+const isNovel = (p: PostMeta) =>
+  (p.category ?? "").startsWith("小說");
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -30,13 +37,39 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 export default async function HomePage() {
-  const posts = await getAllPostsMeta();
-  const featured = getDailyPick(posts);
-  const gridPosts = posts.filter((p) => p.slug !== featured.slug).slice(0, 6);
+  const allPosts = await getAllPostsMeta();
+
+  /* ── Split into knowledge / novel ── */
+  const knowledgeAll = allPosts.filter((p) => !isNovel(p));
+  const novelAll     = allPosts.filter(isNovel);
+
+  /* ── Featured card (knowledge only) ── */
+  const featured     = getDailyPick(knowledgeAll);
+  const knowledgeGrid = knowledgeAll
+    .filter((p) => p.slug !== featured.slug)
+    .slice(0, 6);
+
+  /* ── Group novels by series, sorted by slug ── */
+  const groupsMap: Record<string, SeriesGroup> = {};
+  for (const p of novelAll) {
+    const key = p.series ?? "unknown";
+    if (!groupsMap[key]) {
+      groupsMap[key] = {
+        series: key,
+        title: (p.category ?? key).replace(/^小說 - /, ""),
+        posts: [],
+      };
+    }
+    groupsMap[key].posts.push(p);
+  }
+  const novelGroups: SeriesGroup[] = Object.values(groupsMap).map((g) => ({
+    ...g,
+    posts: [...g.posts].sort((a, b) => a.slug.localeCompare(b.slug)),
+  }));
 
   return (
     <div>
-      {/* ── FEATURED ── */}
+      {/* ── FEATURED (always visible) ── */}
       <section className="py-10">
         <SectionLabel>精選文章</SectionLabel>
 
@@ -68,11 +101,25 @@ export default async function HomePage() {
             <div className="flex flex-col" style={{ padding: "2.5rem", gap: "1rem" }}>
               <div className="flex items-center gap-4">
                 {featured.category && (
-                  <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                  <span
+                    style={{
+                      fontFamily: "monospace",
+                      fontSize: "0.6rem",
+                      color: "var(--accent)",
+                      letterSpacing: "0.15em",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     {featured.category}
                   </span>
                 )}
-                <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)" }}>
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "0.6rem",
+                    color: "var(--text-3)",
+                  }}
+                >
                   {featured.readingTime} min read
                 </span>
               </div>
@@ -92,11 +139,21 @@ export default async function HomePage() {
 
               <div
                 className="flex items-center justify-between"
-                style={{ paddingTop: "1.2rem", borderTop: "1px solid var(--border)", marginTop: "auto" }}
+                style={{
+                  paddingTop: "1.2rem",
+                  borderTop: "1px solid var(--border)",
+                  marginTop: "auto",
+                }}
               >
                 <span style={{ fontSize: "0.8rem", color: "var(--text-2)" }}>今日精選</span>
                 {featured.date && (
-                  <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)" }}>
+                  <span
+                    style={{
+                      fontFamily: "monospace",
+                      fontSize: "0.6rem",
+                      color: "var(--text-3)",
+                    }}
+                  >
                     {featured.date}
                   </span>
                 )}
@@ -106,73 +163,12 @@ export default async function HomePage() {
         </Link>
       </section>
 
-      {/* ── ARTICLES GRID ── */}
+      {/* ── TABBED SECTION: 知識向 / 小說向 ── */}
       <section className="pb-10">
-        <SectionLabel>最新文章</SectionLabel>
-
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-px"
-          style={{ background: "var(--border)" }}
-        >
-          {gridPosts.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/posts/${p.slug}`}
-              className="card-hover flex flex-col"
-              style={{
-                background: "var(--bg)",
-                padding: "1.8rem",
-                gap: "0.9rem",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
-              <div className="flex items-center justify-between">
-                {p.category ? (
-                  <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--accent-dim)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                    {p.category}
-                  </span>
-                ) : <span />}
-                <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)" }}>
-                  {p.readingTime} min
-                </span>
-              </div>
-
-              <h3
-                className="flex-1"
-                style={{ fontSize: "1rem", lineHeight: 1.5, color: "var(--text-1)" }}
-              >
-                {p.title}
-              </h3>
-
-              {p.description && (
-                <p className="line-clamp-2" style={{ fontSize: "0.82rem", color: "var(--text-2)", lineHeight: 1.7 }}>
-                  {p.description}
-                </p>
-              )}
-
-              <div
-                className="flex justify-end"
-                style={{ paddingTop: "0.9rem", borderTop: "1px solid var(--border)", marginTop: "auto" }}
-              >
-                {p.date && (
-                  <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)" }}>
-                    {p.date}
-                  </span>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex justify-center pt-10">
-          <Link href="/posts" className="view-all-link">
-            查看全部文章 →
-          </Link>
-        </div>
+        <HomeTabs knowledgePosts={knowledgeGrid} novelGroups={novelGroups} />
       </section>
 
-      {/* ── UNSOLVED QUESTIONS ── */}
+      {/* ── UNSOLVED QUESTIONS (always visible) ── */}
       <section className="py-16" style={{ borderTop: "1px solid var(--border)" }}>
         <SectionLabel>未解之謎</SectionLabel>
 
@@ -183,13 +179,29 @@ export default async function HomePage() {
               className="flex items-baseline gap-8 py-5 transition-all hover:pl-2 cursor-default"
               style={{ borderBottom: "1px solid var(--border)" }}
             >
-              <span style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)", flexShrink: 0, width: "1.5rem" }}>
+              <span
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "0.6rem",
+                  color: "var(--text-3)",
+                  flexShrink: 0,
+                  width: "1.5rem",
+                }}
+              >
                 {q.num}
               </span>
               <p style={{ fontSize: "0.95rem", color: "var(--text-1)", lineHeight: 1.5, flex: 1 }}>
                 {q.text}
               </p>
-              <span className="hidden sm:block" style={{ fontFamily: "monospace", fontSize: "0.6rem", color: "var(--text-3)", flexShrink: 0 }}>
+              <span
+                className="hidden sm:block"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "0.6rem",
+                  color: "var(--text-3)",
+                  flexShrink: 0,
+                }}
+              >
                 {q.cat}
               </span>
             </div>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs, getBanner, getSeriesPosts } from "@/lib/posts";
 import RandomPostButton from "@/components/RandomPostButton";
 import ChapterNav from "@/components/ChapterNav";
+import ChapterFooterNav from "@/components/ChapterFooterNav";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -118,7 +119,12 @@ export default async function PostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
 
-      <RandomPostButton slugs={allSlugs} />
+      {/* Bottom nav — chapter prev/next for novels, random for knowledge */}
+      {seriesPosts.length > 1 ? (
+        <ChapterFooterNav currentSlug={slug} posts={seriesPosts} />
+      ) : (
+        <RandomPostButton slugs={allSlugs} />
+      )}
     </article>
   );
 }
